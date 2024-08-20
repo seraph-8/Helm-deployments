@@ -1,0 +1,40 @@
+# web-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serahsmith-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: serahsmith-web
+  template:
+    metadata:
+      labels:
+        app: serahsmith-web
+    spec:
+      containers:
+      - name: serahsmith-web
+        image: "767398112260.dkr.ecr.us-east-1.amazonaws.com/serahsmith-web"
+        ports:
+        - containerPort: 80
+        env:
+        - name: API_URL
+          value: api:8080
+        - name: DB_HOST
+          value: db
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: your_database_name
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+

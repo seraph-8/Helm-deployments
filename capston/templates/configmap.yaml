@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-sql
+data:
+  init.sql: |
+    -- Create the 'words' table if it doesn't exist
+    CREATE TABLE IF NOT EXISTS words (
+        id SERIAL PRIMARY KEY,
+        word VARCHAR(255)
+    );
+
+    -- Insert predefined words into the 'words' table
+    INSERT INTO words (word) VALUES 
+    ('example1'),
+    ('example2'),
+    ('example3');

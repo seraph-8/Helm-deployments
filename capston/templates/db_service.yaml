@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: serasmith-db
+  labels:
+    app: serahsmith-db
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: serahsmith-db

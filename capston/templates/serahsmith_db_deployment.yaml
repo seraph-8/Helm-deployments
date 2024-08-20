@@ -1,0 +1,40 @@
+# db-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serahsmith-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: serahsmith-db
+  template:
+    metadata:
+      labels:
+        app: serahsmith-db
+    spec:
+      containers:
+      - name: serahsmith-db
+        image: "767398112260.dkr.ecr.us-east-1.amazonaws.com/serahsmith-db"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: "serahsmith"
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+        volumeMounts:
+        - name: init-sql
+          mountPath: /docker-entrypoint-initdb.d/
+      volumes:
+      - name: init-sql
+        configMap:
+          name: db-init-sql
