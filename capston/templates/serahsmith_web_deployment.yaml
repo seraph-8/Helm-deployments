@@ -1,8 +1,9 @@
-# web-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: serahsmith-web
+  labels:
+    app: serahsmith-web
 spec:
   replicas: 2
   selector:
@@ -19,5 +20,7 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: API_URL
-          value: "http://wordsmith-api:8080"
+        - name: API_HOST
+          value:  "api-service"
+        - name: API_PORT
+          value: "8080"
