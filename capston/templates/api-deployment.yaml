@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:serahsmith -api
+  name: wordsmith-api-deployment
+  labels:
+    app: wordsmith-api
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: serahsmith-api
@@ -18,9 +20,23 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: DATABASE_URL
-          value: "jdbc:postgresql://db:5432/postgres", "postgres", ""
-        
+        - name: DB_HOST
+          value: "smith-db-service"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+        - name: DB_NAME
+          value: "serahsmith"
+
         
        
   
