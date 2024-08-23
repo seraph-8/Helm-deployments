@@ -5,8 +5,9 @@ metadata:
   labels:
     app: serahsmith-db
 spec:
-  ports:
-  - port: 5432
+  type: LoadBalancer
+  - protocol: TCP
+    port: 5432
     targetPort: 5432
   selector:
     app: serahsmith-db

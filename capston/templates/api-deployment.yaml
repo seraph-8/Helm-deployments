@@ -18,22 +18,9 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: DB_HOST
-          value: serahsmith-db
-        - name: DB_PORT
-          value: "5432"
-        - name: DB_PORT
-          value: serahsmith_db
-        - name: SPRING_DATASOURCE_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: username
-        - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: password
-
+        - name: DATABASE_URL
+          value: "jdbc:postgresql://db:5432/postgres", "postgres", ""
+        
+        
        
   

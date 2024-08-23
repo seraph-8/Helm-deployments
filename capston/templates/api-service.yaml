@@ -5,8 +5,9 @@ metadata:
   labels:
     app: serahsmith-api
 spec:
-  ports:
-  - port: 8080
+  type: LoadBalancer
+  - protocol: TCP
+    port: 8080
     targetPort: 8080
   selector:
     app: serahsmith-api
