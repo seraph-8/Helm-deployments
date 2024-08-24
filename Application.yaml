@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/seraph-8/Helm-deployments.git
-    targetRevision: MAIN
+    targetRevision: main
     path: capston
   destination:
     server: https://kubernetes.default.svc
